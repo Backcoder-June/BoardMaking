@@ -1,0 +1,10 @@
+MVC 모델 연결고리 개념
+
+Template View (HTML) - ${variables}
+
+Controller (JAVA) - @GetMapping
+
+Model (연결고리) -  model.addAttribute(" ${HTML Key} ", JAVA 변수 );
+
+//Template 의 view 를 단순 출력하려면 Controller 만 있어도 된다. 근데 변수가 들어가야 할 Template 자리들이 있으면
+거기에 변수를 담아줘야 할 연결고리가 필요하다. ( XX님 환영합니다.)  이걸 해주는게 Model 연결고리 key - value
