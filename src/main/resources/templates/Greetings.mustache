@@ -1,29 +1,31 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Greeting</title>
-</head>
-<body>
-
-한국말 테스트 왜 안되냐 " 이래도 " english
+{{>layouts/header}}
+<!--content-->
 <p>
-            <h1> Welcome {{username}}! Nice to meet U! </h1>
+<div class="bg-dark text-white p-2 ">
+            <h1> Welcome  {{username}}! Nice to meet U! </h1>
+</div>
+
 </p>
+<div class="ml-5">
 <p>
 
-            <h1> Today is {{date}}! Have a nice day! </h1>
+             Today is {{date}}! Have a nice day!
 </p>
+    <div class="mb-5">
+<p>
+    <a href="http://localhost:8080/board/">게시판 이용</a>
 
+
+</p>
+    </div>
+    <div class="mt-5">
     <a href="http://localhost:8080/farewell/"> End Service </a>
+    </div>
 <p>
     or use
 </p>
     <a href="http://www.google.com/"> google link </a>
+</div>
+<!--footer-->
+{{>layouts/footer}}
 
-
-
-</body>
-</html>

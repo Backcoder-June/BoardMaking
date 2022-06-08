@@ -8,3 +8,154 @@ Model (연결고리) -  model.addAttribute(" ${HTML Key} ", JAVA 변수 );
 
 //Template 의 view 를 단순 출력하려면 Controller 만 있어도 된다. 근데 변수가 들어가야 할 Template 자리들이 있으면
 거기에 변수를 담아줘야 할 연결고리가 필요하다. ( XX님 환영합니다.)  이걸 해주는게 Model 연결고리 key - value
+
+
+레이아웃 Template 화
+1. Templates 에 layout 디렉토리 만들기 ( 레이아웃 세팅 창고 )
+2. header - 맨 처음부터 ~ content 직전까지
+3. footer - content 끝 부분 ~ 맨 끝까지    (<head> , <body> 는 기준점이 아니다. content 만이 기준점이 된다.)
+4. {{>layout/header}}  끝
+
+Bootstrap 기술들
+m : margin 공백      p : padding 공백(bolder-contents)          bolder : 테두리
+t : top  b : bottom  l : left  r : right
+=> <div class="mb-3 mt-3 p-2">
+
+class = "form-control"
+<div class = "form-group"> 하나하나 -> 입력 form 하나하나 그룹화 시켜줌 (감싸주기)
+<input/textarea class = "form-control">    -> 입력 form 을  bootstrap 자체 스타일로 만들어줌
+
+form 에 label 달기
+<label class="form-label">제목</label>
+
+button 만들기 (form 던지기)  class = "btn btn-XXX"
+<button type="submit" class="btn btn-primary">작성</button>
+primary(blue) success(green) danger(red) warning(yellow)
+
+
+container  -  width
+<div class="container">  width 넓이 고정값 (bootstrap)
+<form class="container-fluid">  width 넓이 100%
+
+@PostMapping 만들기
+
+1. form 태그 -> 속성 action / method
+<form action="/board" method="Post">
+
+2. DTO class 만들어주기  <= 사용자의 입력값(Form data)을 받아올 그릇! ( MemberForm )
+private String title;
+private String contents;
+-> constructor, getter setter, toString(sout 확인용) 필요한걸로.
+이 DTO class 객체가 PostMapping 메소드의 파라미터로 들어가서 입력값을 받아낸다.
+
+3. <input/textarea> 입력 form 에   name=" "  속성 추가   (연결고리)
+<input type="text" name="title">
+<textarea class="form-control" name="contents">
+=> DTO class form 객체의 필드명과 맞춰서, 사용자의 입력값을 DTO 가 받아낸다.
+
+4. @PostMapping("action")
+public String( DTOClass form ) { form.getname(); return "redirect:/board" }
+
+
+DB 연결
+1. interfacereposit 없이, SpringdataReposit 만으로도 된다.
+
+2. Springdatareposit 에서도 (1) extends Repository<M, Long> 의 경우는 바로 save 소환이 안되서, 정의 해주고 쓰면되고
+                           (2) extends CrudRepository<M, Long> 의 경우는 바로 소환이 된다. 정의 필요 없다.
+
+3. Service 계층의 필요성 -> 기본적인 save, find 기능들을 사용해서 뭔가 한층 높은 걸 만들거나,
+                          중복방지 같은 기능들을 추가하여 기능으로 만들고자 할때 쓴다.
+  사실상, Service 계층없이, repository 기능만 사용할거면, Controller 에서 service 대신 repository를 소환해서 Autowired 해서
+  사용하면 된다.
+  이 경우, Configuration 조차 없어도 DB 에 저장이 가능하다. 사실상 DB에 접근할 때 필요한건 Repository 이다.
+
+4. 하지만 Service 계층을 생성할 경우, 이를 Repository 와 연결해주는 절차가 필요하다
+  (1) Service 계층 @Transaction(org)
+  (2) Configuration 을 통해 DB 에 등록 (Repository 와 연결)
+
+5. Entity 필드들 @Column 연결 필요성 - 일단은 안해도 됬다.
+   - 해도 된다. 하는걸 기본으로 생각해두자. (변경점들 적용가능)
+
+
+.toEntity() 생성해서 사용하는 법
+1. 기본 Entity 에 생성자를 만들어야 한다.
+
+2. @PostMapping 쪽에서 Board board = form.toEntity();  form 을 entitiy 로 만든걸 Board 객체 타입에 담고자 한다.
+
+3. form class 에서 toEnity(); 메소드 정의
+   public Board toEntity(){
+     return new Board(null, title, contents);}   Board 생성자의 type 에 맞춰서 들어갈 값들을 넣어준다. id 는 null 로 한다.
+ ->  DTO 객체인 form 을 받으면 -> Entity 인 Board 를 새로 만들어 거기에 null title contents 순으로 넣어서
+     new Board 객체로 반환한다. (즉, BoardEntity 안에 form 을 담아서 new BoardEntity 로 꺼낸다. 결국 form 은 Entity 가 되었다.)
+4. 저장 등 기능 이용
+    Boardreposit.save(form.toEntity());
+
+++. 이걸 하는 방법이 기존의
+1. BoardEntity 소환
+    BoardEntity boardentity = new BoardEntity();
+2. getter setter 이용해서 form 값을 boardentity 객체 entity 에 담기
+    boardentity.setTitle(form.getTitle());
+    Boardreposit.save(boardentitiy);
+
+
+< DB 언어 >
+1. DDL (Data Definition Language)  - 데이터베이스를 정의하는 언어
+DB 데이터를 생성, 수정, 삭제하는 등의 데이터의 전체의 골격을 결정하는 역할
+
+create : 데이터베이스, 테이블등을 생성
+drop : 데이터베이스, 테이블을 삭제
+alter : 테이블을 수정
+truncate : 테이블을 초기화
+※데이터 베이스 관리자나 데이터베이스 설계자가 사용
+
+2. DML (Data Manipulation Language)  - 데이터 조작어
+정의된 DB에 입력된 레코드를 조회, 수정, 삭제 등의 역할
+
+select : 데이터 조회
+insert : 데이터 삽입
+update : 데이터 수정
+delete : 데이터 삭제
+※ DB 데이터를 실질적으로 처리하는데 사용하는 언어
+
+3. DCL(Data Control Language)
+DB에 접근, 객체에 권한을 주는등의 역할
+
+grant : 특정 데이터베이스 사용자에게 특정 작업에 대한 수행 권한을 부여
+revoke : 특정 데이터베이스 사용자에게 특정 작업에 대한 수행 권한을 박탈, 회수
+commit : 트랜잭션의 작업을 저장
+rollback : 트랜잭션의 작업을 취소, 원래대로 복구
+
+
+<H2 application properties 추가>
+spring.datasource.url=jdbc:h2:tcp://localhost/~/test
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa          // 오류방지
+spring.jpa.show-sql=true               //sql 보여준다
+spring.jpa.hibernate.ddl-auto=none     // DB 정의어 (테이블 생성 삭제)
+                      //auto = create <- 자동생성. 그때그때 초기화
+                      //auto = none <- 자동생성 X. 계속 저장됨 (table 수동으로 만들어줘야함)
+#spring.h2.console.enabled=true         //h2 DB 웹 콘솔 접근 허용  (이거 없어도 위에거로만 해도 접근 됨)
+
+
+<DB 에서 SQL 문으로 insert 하기>
+insert into boardentity(id, title, contents)
+values(7, 'title making', 'contents making');
+
+
+<Lombok Library 추가> - Build.gradle
+compileOnly 'org.projectlombok:lombok'
+annotationProcessor 'org.projectlombok:lombok'
++ plugin 추가 + enable 설정 (annotation processor)
+
+<Lombok 기능들>  -> public class 레벨에 선언
+1. @Getter @Setter
+
+2. @AllArgsConstructor    전체 생성자 생성
+
+3. @Tostring     generator 로 생성한 toString 기능
+
+4. @Slf4j          logging 기능 활성화    => log.info( sout 할 내용 );
+(Simple logging facade for j)
+
+
+
