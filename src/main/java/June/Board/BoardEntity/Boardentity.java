@@ -20,4 +20,5 @@ public class Boardentity {
     @Column
     private String contents;
 
+
 }

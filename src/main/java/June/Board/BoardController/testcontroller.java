@@ -1,6 +1,7 @@
 package June.Board.BoardController;
 
 import June.Board.BoardEntity.Boardentity;
+import June.Board.BoardEntity.modelentity;
 import June.Board.BoardREposit.Boardreposit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,19 @@ public class testcontroller {
         this.boardreposit = boardreposit;
     }
 
-    private String username = "June";
+    /*private String username = "June";
     private String date = "2022-06-07";
     private String marketername = "Tom";
+*/
+
+      modelentity modelEntity= new modelentity();
+
 
     @GetMapping("/")
     public String meet(Model model) {
-        model.addAttribute("username", username);
+        model.addAttribute("username", modelEntity.getUsername() );
 
-        model.addAttribute("date", date);
+        model.addAttribute("date", modelEntity.getNowdate());
         return "Greetings";
     }
 
@@ -36,15 +41,15 @@ public class testcontroller {
     @GetMapping("/farewell")
     public String farewell(Model model) {
 
-        model.addAttribute("username", username);
-        model.addAttribute("marketer", marketername);
+        model.addAttribute("username", modelEntity.getUsername());
+        model.addAttribute("marketer", modelEntity.getMarketer());
         return "Farewell";
     }
 
     @GetMapping("/starter")
     public String starter(Model model){
-        model.addAttribute("marketer", marketername);
-        model.addAttribute("username", username);
+        model.addAttribute("marketer", modelEntity.getMarketer());
+        model.addAttribute("username", modelEntity.getUsername());
 
         return "startertemplate";
     }

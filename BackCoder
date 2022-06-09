@@ -158,4 +158,9 @@ annotationProcessor 'org.projectlombok:lombok'
 (Simple logging facade for j)
 
 
+Math.random()
+-> 0.000 ~ 0.999...    *6
+-> 0.000 ~ 5.999...    +1
+-> 1.000 ~ 6.999...   (int)  -> 1~6  int dice()
+
 
