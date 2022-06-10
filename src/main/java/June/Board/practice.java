@@ -1,5 +1,10 @@
 package June.Board;
 
+import javax.swing.*;
+
+import java.util.Arrays;
+
+import static java.lang.Math.pow;
 import static java.lang.Math.random;
 
 class kcalcacl{
@@ -76,6 +81,60 @@ class company{
 }
 
 
+// 구구단 출력해보자구
+class gugu {
+
+
+    public static void multiple() {
+
+        int aa = 0;
+        int bb = 1;
+        while (aa < 10) {
+            while (bb < 10) {
+                System.out.println(aa + " X " + bb + "= " + aa * bb);
+                bb++;
+            }
+        }
+
+
+        for (int num = 1; num < 10; num++) {
+            for (int num2 = 1; num2 < 10; num2++) {
+                System.out.println(num + " X " + num2 + "= " + num * num2);
+
+            }
+
+        }
+
+
+    }
+
+}
+
+
+class bacteria{
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -84,6 +143,48 @@ class company{
 public class practice {
 
     public static void main(String[] args) {
+
+        int[] vac = new int[10];
+        for (int v = 0; v<vac.length; v++){
+
+            vac[v] = (int)Math.pow(2, v);
+
+            System.out.println(vac[v]);
+        }
+
+
+
+
+
+
+
+
+
+        String[] Fruits = new String[3];
+        Fruits[0] = "applte";
+        Fruits[1] = "appltbbe";
+        Fruits[2] = "appltcce";
+
+        for (String fruut: Fruits) {
+            System.out.println(fruut);}
+
+        for(int f = 0; f < Fruits.length; f++){
+            System.out.println(Fruits[f]);
+        }
+
+
+
+
+
+
+
+
+
+//        gugu.multiple();
+
+
+
+
 
 //        company c1 = new company();
 
