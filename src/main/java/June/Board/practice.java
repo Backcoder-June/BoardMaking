@@ -144,6 +144,10 @@ public class practice {
 
     public static void main(String[] args) {
 
+
+
+
+
         int[] vac = new int[10];
         for (int v = 0; v<vac.length; v++){
 

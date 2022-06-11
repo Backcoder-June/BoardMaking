@@ -164,3 +164,30 @@ Math.random()
 -> 1.000 ~ 6.999...   (int)  -> 1~6  int dice()
 
 
+Sevlet
+
+@WebServlet(name = "HelloSevlet", urlPatterns = "/home")
+public class HelloSevlet extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response){
+        //API 로직 작성    } }
+
+WAS 가 제공해주는 최고의 기능 두 가지
+1. Sevlet 제공   = >  <비지니스 로직  /  DB > 를 제외한  ( HTTP 메세지 파싱과정 및 관련 기능들 전반 ) 을 자동으로 처리
+2. Sevlet Container  = > (Sevlet 관리)  +  멀티쓰레드 기능 지원
+
+
+Thread
+- API 코드를 실행시키는 역할
+- 한줄한줄씩, 한번에 하나씩만, 순차적으로 실행
+- 요청이 들어오면 Sevlet 호출  => 요청 처리
+- 생성비용 비쌈
+- Context Switching 비용 발생 가능
+
+Thread Pool
+- Pool 에 생성가능한 최대 thread 수를 관리 => MaxThread 최대 쓰레드 개수
+- MaxThread 세팅이 가장 중요한 튜닝 포인트 (WAS)
+- 서버 리소스, 최대 쓰레드 수, 클라우드 서버 확장  균형값 찾기
+
+
