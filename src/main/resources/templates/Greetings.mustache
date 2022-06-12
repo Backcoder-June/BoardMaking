@@ -2,7 +2,12 @@
 <!--content-->
 <p>
 <div class="bg-dark text-white p-2 ">
-            <h1> Welcome  {{username}}! Nice to meet U! </h1>
+            <h1> Welcome  {{username}}! Nice to meet U!
+
+                <div align="right" class="mr-5">
+                      <a href="http://localhost:8080/login/">Login</a>
+                </div>
+            </h1>
 </div>
 
 </p>
@@ -13,19 +18,24 @@
 </p>
     <div class="mb-5">
 <p>
-    <a href="http://localhost:8080/board/">게시판 이용</a>
+    <a href="http://localhost:8080/board/"><h1>Board</h1></a>
 
 
 </p>
     </div>
     <div class="mt-5">
-    <a href="http://localhost:8080/farewell/"> End Service </a>
+        <a href="http://www.google.com/"> google link </a>
     </div>
-<p>
-    or use
+<p class="my-5">
+
 </p>
-    <a href="http://www.google.com/"> google link </a>
+    <a href="http://localhost:8080/farewell/"> End Service </a>
 </div>
+<div class="mt-5 mb-5 ml-2"  >
+    <a href="http://localhost:8080/starter/">마케터 상담</a>
+
+</div>
+
 <!--footer-->
 {{>layouts/footer}}
 

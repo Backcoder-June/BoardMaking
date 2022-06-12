@@ -3,12 +3,32 @@
 <!--   Content   -->
 <div class="bg-dark text-white p-5">
 <p>
-<h1>{{marketer}} 마케터님 전용 페이지 입니다.</h1>
+<h1>{{username}} 회원님 전용 페이지 입니다.</h1>
 </p>
 </div>
-<p>
-    {{username}} 님 과의 상담은 어떠셨나요? 설문에 응해주세요.
+<p class="ml-2">
+   마케터 {{marketer}} 님과의 상담은 어떠셨나요? 설문에 응해주세요.
 </p>
+<form class="container" action="/starter" method="post" >
+    <div class="mb-3 mt-3 form-group">
+        <label class="form-label">상담 카테고리</label>
+        <input type="text" class="form-control" name="counsel_category">
+    </div>
+    <div class="mb-3 mt-3 form-group">
+        <label class="form-label">상담 내용</label>
+        <input type="text" class="form-control" name="counsel_content">
+    </div>
+    <div class="mb-3 mt-3 form-group">
+        <label class="form-label">상담 특이사항</label>
+        <input type="text" class="form-control" name="counsel_unusual">
+    </div>
+    <button type="submit" class="btn btn-success">제출</button>
+</form>
+<div class="mt-5 ml-2">
+    설문에 응해주셔서 감사합니다!
+</div>
+
+
 
 {{>layouts/footer}}
 

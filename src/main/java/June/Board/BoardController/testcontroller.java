@@ -1,8 +1,12 @@
 package June.Board.BoardController;
 
+import June.Board.BoardEntity.BackMember;
 import June.Board.BoardEntity.Boardentity;
+import June.Board.BoardEntity.MarketerEntity;
 import June.Board.BoardEntity.modelentity;
 import June.Board.BoardREposit.Boardreposit;
+import June.Board.BoardREposit.Marketerreposit;
+import June.Board.BoardREposit.Memberreposit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,18 +14,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.net.BindException;
+
 @Slf4j
 @Controller
 public class testcontroller {
 
     private final Boardreposit boardreposit;
+    private final Marketerreposit marketerreposit;
+    private final Memberreposit memberreposit;
+
 
     @Autowired
-    public testcontroller(Boardreposit boardreposit) {
+    public testcontroller(Boardreposit boardreposit, Marketerreposit marketerreposit, Memberreposit memberreposit) {
         this.boardreposit = boardreposit;
+        this.marketerreposit = marketerreposit;
+        this.memberreposit = memberreposit;
     }
 
-    /*private String username = "June";
+
+/*private String username = "June";
     private String date = "2022-06-07";
     private String marketername = "Tom";
 */
@@ -54,6 +66,21 @@ public class testcontroller {
         return "startertemplate";
     }
 
+    @PostMapping("/starter")
+    public String marketer(marketerform markform){
+        MarketerEntity MK = new MarketerEntity();
+        MK.setCounsel_category(markform.getCounsel_category());
+        MK.setCounsel_content(markform.getCounsel_content());
+        MK.setCounsel_unusual(markform.getCounsel_unusual());
+
+        marketerreposit.save(MK);
+        log.info(markform.toString());
+
+        return "redirect:/starter";
+
+
+    }
+
     @GetMapping("/board")
     public String boardinput(){
         return "Board/Board";}
@@ -73,6 +100,29 @@ public class testcontroller {
      //   System.out.println(form.toString());
         log.info(form.toString());
         return "redirect:/board";
+    }
+
+    @GetMapping("/login")
+    public String logging(){
+        return "Member/memberlogin";
+    }
+    @PostMapping("/login")
+    public String savemember(Memberform memberform){
+        BackMember backMember = new BackMember();
+        backMember.setUserid(memberform.getUserid());
+        backMember.setUserpw(memberform.getUserpw());
+
+        try {
+        memberreposit.save(backMember);}
+
+        catch (IllegalStateException e){
+            return "Member/loginerror";
+        }
+
+        log.info(memberform.toString());
+
+        return "redirect:/";
+
     }
 
     //

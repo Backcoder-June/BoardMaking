@@ -27,34 +27,6 @@ public class practice2 {
                 commands의 각 원소는 길이가 3입니다.*/
 
 
-        class Solution {
-            public String solution(int[] numbers) {
-
-//                3, 30 34, 5, 9
-
-                numbers[0] = 3;
-                numbers[1] = 30;
-                numbers[2] = 34;
-                numbers[3] = 5;
-                numbers[4] = 9;
-
-                String d = numbers.toString();
-
-                for (String c :
-                     ) {
-                    if (c>=10){
-                        c = c/10;
-                    }
-
-                }
-
-                Arrays.sort(numbers);
-                String a = "";
-                return a;
-
-            }
-
-            }
 
 
 
