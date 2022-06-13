@@ -191,3 +191,15 @@ Thread Pool
 - 서버 리소스, 최대 쓰레드 수, 클라우드 서버 확장  균형값 찾기
 
 
+<Java Script 문법>
+document.head.remove();
+document.body.remove();
+document.body=document.createElement("body");
+<body></body>
+document.body.appendChild(document.createElement("h1"));
+<h1></h1>
+document.querySelector("h1").append("Hello June");
+alert("비밀번호는 숫자로만 생성 가능합니다!");
+prompt("당신은 기계가 아니라 사람입니까? 맞으면 yes 를 입력해 주세요");
+'yes'
+

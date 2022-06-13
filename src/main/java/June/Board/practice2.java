@@ -1,12 +1,109 @@
 package June.Board;
 
-import java.util.Arrays;
+import java.util.*;
 
 import static java.util.Arrays.sort;
 
+
+
+
+
 public class practice2 {
 
+
+    static class computer implements Comparable{
+        int price;
+        String computername;
+        computer(String compname, int price){
+            this.computername = compname;
+            this.price = price;
+        }
+
+        @Override
+        public int compareTo(Object c1){
+            return this.price - ((computer)c1).price;}
+
+        public String toString(){
+            return computername + " : " + price;
+        }
+
+
+
+
+    }
+
+
+
+
+
+
     public static void main(String[] args) {
+
+        List<computer> computers = new ArrayList<>();
+
+        computers.add(new computer("Apple", 120000));
+        computers.add(new computer("Samsung", 110000));
+        computers.add(new computer("LG", 90000));
+
+        System.out.println(computers.toString());
+
+        Collections.sort(computers);
+
+        System.out.println(computers.toString());
+
+
+
+
+
+
+
+        List<Integer> price = new ArrayList<>();
+        price.add(1000);
+        price.add(5500);
+        price.add(17000);
+
+        System.out.println("담배값은 : "+ price.get(2));
+
+        for (int money: price
+             ) {
+            System.out.println("지출내역 : "+money);
+
+        }
+
+        Map<Integer, String> kv = new HashMap<>();
+        kv.put(1, "1등은 구글");
+        kv.put(2, "2등은 네이버");
+        kv.put(3, "3등은 다음");
+
+        System.out.println("랭킹결과 "+kv.get(2));
+
+        for (String result:kv.values()
+             ) {
+            System.out.println(result);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
         배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다.
