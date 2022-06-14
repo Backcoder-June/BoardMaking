@@ -1,0 +1,179 @@
+< SQL   select 문  잡기술들 >
+순서 : SELECT ~ FROM ~ WHERE ~ GROUP BY ~ HAVING ~ ORDER BY ~ LIMIT ~ ;
+
+select name from member where height>160 AND member_num<4;       //각기다른 column 조건 AND 로 연결
+
+select name from member where height BETWEEN 163 AND 166;           //BETWEEN 사용 (이상 이하)
+
+select name from member where address = '경기' OR address = '전남' OR address = '서울';
+
+select name from member where address  IN  ('경기', '전남', '서울');                // IN 으로 OR 문 합치기 (이거나 이거나)
+
+select name from member where name LIKE '%대';       -> 소녀시대          //  LIKE 활용 / % = 모든글자
+
+select name from member where name LIKE  '_ _ 시대';                       //  _ _    < = 글자 수 (2글자)
+
+select name from member where name LIKE '%소녀%';   ->소녀시대/우주소녀    // 이름에 소녀 들어가면 다찾음 %A%
+
+select * from member ORDER BY height;                                           // ORDER BY 정렬 (DEFUALT 오름차순)
+select * from member ORDER BY height DESC;                                                                          ASC;(생략)
+
+select * from member ORDER BY height DESC , weight ASC;         // height로 먼저 정렬 -> 동률일때 weight로 정렬
+
+select * from member ORDER BY height LIMIT 3;                      // LIMIT  정렬순에서 3개까지만 보겠다.
+
+select * from member ORDER BY height LIMIT 0 , 3;                // index[ 0 ] 번째 부터   3개 보겠다.
+
+select address from member;                -> 서울 경기 경기 서울 서울 경남 서울 전남 경기 경남 서울 경기 . . .
+select DISTINCT address from member;    -> 서울 경기 경남                 // DISTINCT 중복 제거하고 종류만 뽑아서 보여줌
+
+
+select   Product, SUM(price)   from buy   GROUP BY   Product;         // GROUP BY  -> 그룹화, 집계함수와 같이 사용
+                                                                                    // "그룹"별로 묶어서 -> (어떤 칼럼)을 "함수" 해라.
+                                                                                   //SUM / AVG / MAX / MIN / COUNT / COUNT(DISTINCT)
+-> 시계 300
+-> 컴퓨터 200
+-> 책 5
+
+
+select id, sum(price*amount) from buy group by id;   // 그룹 id 별로 총구매금액  / sum ( prcice * amount ) 활용!
+
+select id, avg(amount), avg(price) from buy group by id;   // 그룹 별로 방문(구매)할때마다, 평균 몇개사고 얼마 쓰는지
+
+
+< GROUP BY  <- WHERE 절과 함께 쓸 수 없다 => HAVING 절과 쓴다. >  순서 :  group by ~ HAVING ~
+                                                                                                조건
+select id, sum(price*amount) from buy GROUP BY id   HAVING    sum(price*amount) > 300;
+
+id 그룹별로 묶어서 총가격을 더해라. 그중에(HAVING) 총가격 더한게 300 이상일 때만 select 해라
+
+
+
+
+
+
+select sum(price) from buy;                   // 집계함수 자체만 select 할수도 있다. 총 구매 금액
+
+
+< COUNT( ) >
+select count(*) from buy;                                  // buy 테이블 총 행data 개수    12개
+select count(category) from buy;                        // category 행data 개수 (null 값 제외)   9개
+select count(DISTINCT category) from buy;            // category 행data 개수 (중복제외) 3개
+
+
+
+
+
+
+< 알리아스    -   별칭주기 > 진짜 column 이름은 그대로 //  Table 에 보이는 모습만 바꿈 >
+
+select height 신장 ,  debut "데뷔  날짜" from member;     //한칸 뛰고 별칭 / 별칭에 띄워쓰기하려면 " " 쌍따옴표
+
+
+<DB 에서 SQL 문으로 insert 하기>
+insert into boardentity(id, title, contents)
+values(7, 'title making', 'contents making');
+
+insert into boardentity values (7, 'title making', 'content making');  - 칼럼명 명시 생략 가능
+
+<SQL update 문>                                                                                   PK 로만 가능 (safe mode)
+update shop_db.member SET member_addr = '바꿀이름 동작구 빅뱅로'  WHERE ( key칼럼이름 = 'gd');
+
+<SQL delte 문>                 PK 로만 가능(safe mode)
+delete from member where member_id = 'hero';
+
+<MySQL 날짜 date 형식>
+220701 ( YYMMDD)
+20220701 (YYYYMMDD)   둘다 된다.
+
+<MySQL Int type 형식>
+1500                      <-  이거로 쓰자
+'1500' 둘다 되긴한다.
+
+CHAR type 일때는 ' 이름 ' 처리 안해주면 안됨
+
+
+<DB 생성 >
+DROP DATABASE IF EXISTS member_db;               (초기화하면서 다시 만들고 싶을때)
+CREATE DATABASE member_db;
+
+<DB 사용 선언 USE>
+USE member_db;   (더블클릭 bold 글씨)
+
+
+
+<DB 에서 table 직접 생성할때>
+Create table TABLE명 (
+                         id Long primary key,
+                      username varchar(255));
+                Entity 에서 중간에 대문자로 한번 강조줬으면, DB 에선 그걸 _ 로 받아들인다. _ 로 끊어서 생성해줘야함.
+
+< Table 이름변경 >
+ALTER TABLE 테이블이름 RENAME 새이름;
+
+
+< Column 추가 >                                    TYPE          속성
+ALTER TABLE  테이블이름  ADD  칼럼이름 VARCHAR(45) NOT NULL;
+
+<Column 제거 >
+ALTER TABLE 테이블이름  DROP 칼럼이름 ;
+
+<Column 변경 >
+ALTER TEBLE  테이블이름  MODIFY  칼럼이름 CHAR(10);                    MODIFY - TYPE 만 변경
+
+ALTER TABLE 테이블이름 CHANGE  칼럼이름  새이름  CHAR(10);         CHANGE  -  이름, TYPE 다 변경 가능
+
+
+
+
+
+< MySQL 에서 table 생성 create문 >
+create table product(
+                           productid INT NOT NULL,
+                           productname CHAR(20) NOT NULL,
+                           productnum INT NOT NULL,
+                           PRIMARY KEY ( productid ) ) ;
+ PK  선언 (1) - productid INT NOT NULL PRIMARY KEY, 이렇게 칼럼뒤에 특성으로 붙여서 선언해주거나
+            (2) - 위처럼 따로 선언 primary key( )
+
+
+< PK SEQUENCE 선언 > - AUTO_INCREMENT
+( ID LONG AUTO_INCREMENT NOT NULL PRIMARY KEY,  )
+
+
+< FOREIGN KEY 선언 >
+CREATE TABLE BUY(
+                 이걸로할게     참조      테이블명 (칼럼)
+FOREIGN KEY (mem_id) REFERENCES member(mem_id)
+);
+
+
+
+< MySQL 에서 table 제거 drop문 >
+drop table selling;  바로 table 명
+
+<MySQL 에서 INDEX 생성문>
+                        인덱스이름               테이블명       (칼럼명)-괄호이용
+CREATE INDEX  idx_member_name   ON   member ( member_name );           -> column 에 index 붙이겠다.
+
+붙여놓으면 자동으로 index로 찾음 (non-unique key lookup 방식)
+
+
+< MySQL 에서 VIEW 생성 >
+
+create VIEW member_view  AS  select*from member;    // view 생성
+
+select * from member_view;   // view 이용 view 로 뽑기
+
+
+< MySQL  - (Stored) PROCEDURE  생성 > = 메소드화
+
+DELIMITER  //    ( 한칸 띄고 // )
+CREATE PROCEDURE mypro( )
+BEGIN
+select * from member where ~ ;
+select * from product where ~ ;
+END //
+( 여기에 DELIMITER ;    닫아주는 것도 있는데 일단 안닫아야 만들어짐 - 1064 ERROR )
+
+CALL mypro( );
