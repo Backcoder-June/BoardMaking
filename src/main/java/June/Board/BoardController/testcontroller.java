@@ -148,6 +148,24 @@ public class testcontroller {
         return "Board/showall";
     }
 
+    @GetMapping("/board/{id}/edit/")
+    public String editpage (@PathVariable Long id, Model model){
+
+        Boardentity editentity = boardreposit.findById(id).orElse(null);
+
+        model.addAttribute("editkey", editentity);
+
+        return "Board/boardedit";
+    }
+
+    @PostMapping("/board/")
+    public String editlink(){
+
+        return "";
+
+
+    }
+
 
 
 

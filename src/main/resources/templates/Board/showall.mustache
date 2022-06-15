@@ -12,7 +12,6 @@
     <tr>
         <th scope="col">ID</th>
         <th scope="col">Title</th>
-        <th scope="col">Content</th>
     </tr>
     </thead>
     <tbody>
@@ -20,8 +19,7 @@
 
         <tr>
             <th>{{id}}</th>
-            <td>{{title}}</td>
-            <td>{{contents}}</td>
+            <td><a href="http://localhost:8080/board/{{id}}">{{title}}</a></td>
         </tr>
 
     {{/resultkey}}
