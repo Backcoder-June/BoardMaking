@@ -1,40 +1,64 @@
 {{>layouts/header}}
 <!--content-->
-<p>
-<div class="bg-dark text-white p-2 ">
-            <h1> Welcome  {{username}}! Nice to meet U!
 
-                <div align="right" class="mr-5">
-                      <a href="http://localhost:8080/login/">Login</a>
-                </div>
-            </h1>
+    <div class="bg-dark text-white p-1 mt-3" align="center">
+           <h1> Welcome  {{username}}! </h1> <h4>Nice to meet U!</h4>
+        <div class="mr-5 mb-1" align="right">
+            <p>
+                 {{date}}
+            <h6>Have a Good Day!</h6>
+            </p>
+        </div>
+    </div>
+
+            <div align="right" class="mr-5 mt-2">
+                <form action="http://localhost:8080/login/">
+                <button type="submit" class="btn btn-success">로그인</button>
+                </form>
+            </div>
+
+        <div class="ml-4 mb-5">
+              <form action="http://localhost:8080/board/all/">
+                  <button type="submit" class="btn btn-primary">
+                    <h1> &nbsp;Board&nbsp; </h1>
+                  </button>
+              </form>
+        </div>
+
+<div class="mt-5">
+    <br>
 </div>
 
-</p>
-<div class="ml-5">
-<p>
-
-             Today is {{date}}! Have a nice day!
-</p>
-    <div class="mb-5">
-<p>
-    <a href="http://localhost:8080/board/"><h1>Board</h1></a>
 
 
-</p>
-    </div>
-    <div class="mt-5">
-        <a href="http://www.google.com/"> google link </a>
-    </div>
-<p class="my-5">
+<div class="mt-5 mb-5 ml-3">
+    <h4>
+    <a href="http://backcoder.tistory.com/">BackCoder Blog</a>
+    </h4>
+</div>
 
-</p>
+<div class="mt-5 mb-5 ml-3">
+    <h4>
+        <a href="https://github.com/Backcoder-June/">BackCoder Github</a>
+    </h4>
+</div>
+
+        <div class="mt-5 mb-5 ml-3">
+            <br>
+            <br>
+            <h5>
+            <a href="http://localhost:8080/starter/">
+                마케터 상담
+            </a>
+            </h5>
+        </div>
+
+<div class="mr-5 mt-5 mb-5" align="right">
+    <h6>
     <a href="http://localhost:8080/farewell/"> End Service </a>
+    </h6>
 </div>
-<div class="mt-5 mb-5 ml-2"  >
-    <a href="http://localhost:8080/starter/">마케터 상담</a>
 
-</div>
 
 <!--footer-->
 {{>layouts/footer}}

@@ -8,8 +8,8 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class boardform {
 
-    public String title;
-    public String contents;
+    private String title;
+    private String contents;
 
 
 }

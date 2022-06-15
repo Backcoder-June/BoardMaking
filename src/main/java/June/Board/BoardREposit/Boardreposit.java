@@ -6,7 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 public interface Boardreposit extends CrudRepository<Boardentity, Long> {
-
-
+    @Override
+    ArrayList<Boardentity> findAll();
 }

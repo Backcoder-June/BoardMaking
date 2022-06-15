@@ -12,9 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.net.BindException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -39,7 +43,6 @@ public class testcontroller {
 */
 
       modelentity modelEntity= new modelentity();
-      BackMember backMember = new BackMember();
 
     @GetMapping("/")
     public String meet(Model model) {
@@ -66,7 +69,7 @@ public class testcontroller {
         return "startertemplate";
     }
 
-    @PostMapping("/starter")
+    @PostMapping("/farewell")
     public String marketer(marketerform markform){
         MarketerEntity MK = new MarketerEntity();
         MK.setCounsel_category(markform.getCounsel_category());
@@ -76,9 +79,7 @@ public class testcontroller {
         marketerreposit.save(MK);
         log.info(markform.toString());
 
-        return "redirect:/starter";
-
-
+        return "redirect:/farewell";
     }
 
     @GetMapping("/board")
@@ -97,21 +98,21 @@ public class testcontroller {
 
         Boardentity saved = boardreposit.save(boardentity);
 
-     //   System.out.println(form.toString());
+        //   System.out.println(form.toString());
         log.info(form.toString());
-        return "redirect:/board";
+        return "redirect:/board/" + saved.getId();
     }
 
     @GetMapping("/login")
     public String logging(){
         return "Member/memberlogin";
     }
-    @PostMapping("/login")
+    @PostMapping("/")
     public String savemember(Memberform memberform){
         BackMember backMember = new BackMember();
         backMember.setUserid(memberform.getUserid());
         backMember.setUserpw(memberform.getUserpw());
-
+// Bind exception 잡는법 보충 필요 안잡힘
         try {
         memberreposit.save(backMember);}
 
@@ -122,8 +123,34 @@ public class testcontroller {
         log.info(memberform.toString());
 
         return "redirect:/";
-
     }
+
+
+    @GetMapping("/board/{id}")
+    public String userpage(@PathVariable Long id, Model model){
+
+        log.info("id= " + id);
+
+//        Optional<Boardentity> boardentity = boardreposit.findById(id);
+//        Boardentity boardentity = boardreposit.findById(id).orElse(null);
+        Optional<Boardentity> boardentity = boardreposit.findById(id);
+
+        model.addAttribute("boardkey", boardentity.orElse(null));
+
+        return "Board/show";
+    }
+    @GetMapping("/board/all")
+    public String allboard(Model model){
+        List<Boardentity> reuslt = (ArrayList<Boardentity>) boardreposit.findAll();
+
+        model.addAttribute("resultkey", reuslt);
+
+        return "Board/showall";
+    }
+
+
+
+
 
     //
 }

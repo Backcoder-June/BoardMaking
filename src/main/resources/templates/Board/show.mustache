@@ -1,0 +1,49 @@
+{{>layouts/header}}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#boardkey}}
+
+    <tr>
+        <th>{{id}}</th>
+        <td>{{title}}</td>
+        <td>{{contents}}</td>
+    </tr>
+
+    {{/boardkey}}
+
+
+    </tbody>
+</table>
+
+<div class="mb-3 ml-3">
+    <form action="/board/all/">
+        <button type="submit" class="btn btn-primary">
+            <h4>
+                Board
+            </h4>
+        </button>
+    </form>
+</div>
+
+<div class="mt-5 ml-3">
+    <form action="/">
+        <button type="submit" class="btn btn-success">
+            <h4>
+                Home
+            </h4>
+        </button>
+    </form>
+</div>
+
+
+
+
+{{>layouts/footer}}

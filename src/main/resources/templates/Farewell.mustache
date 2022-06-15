@@ -1,16 +1,36 @@
 {{>layouts/header}}
 <!--content-->
+
+<div class="ml-3">
 <p>
 <h1>
-Goodbye... {{username}} ..!
+    Thank you for Using our Service {{username}}!
 </h1>
 </p>
 <p>
-    See ya Again! From Marketer {{marketer}}! Thank you for Using our service!
+    See U Again! Good Bye! - Marketer {{marketer}}
 </p>
+<div class="mb-5">
+    <form action="http://localhost:8080">
+        <button type="submit" class="btn btn-primary">
+            Enjoy Service Again
+        </button>
+    </form>
+</div>
+    <div class="mt-5 ml-3">
+        Other Services
+    </div>
 
-     <a href="http://localhost:8080/">Enjoy service again</a>
+    <div class="ml-5 mt-2">
+        <form action="http://www.google.com/">
+            <button type="submit" class="btn btn-danger">Google</button>
+        </form>
+        <form class="mt-3" action="http://www.naver.com/">
+            <button type="submit" class="btn btn-success">Naver</button>
+        </form>
+    </div>
 
+</div>
 <!--footer-->
 {{>layouts/footer}}
 
