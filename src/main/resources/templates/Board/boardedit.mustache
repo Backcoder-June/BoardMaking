@@ -6,10 +6,13 @@
 </div>
 
 {{#editkey}}
-<form class="container" action="http://localhost:8080/board/" method="post" >
+<form class="container" action="/board/{id}/edit/" method="post" >
+
+    <input type="hidden" name="id" value="{{id}}" />
+
     <div class="mb-3 mt-3">
         <label class="form-label">제목</label>
-        <input type="text" class="form-control" name="title" value="{{title}}">
+        <input type="text" class="form-control" name="title" value="{{title}}" />
     </div>
     <div class="mb-3">
         <label class="form-label">내용</label>

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.BindException;
 import java.util.ArrayList;
@@ -141,9 +142,9 @@ public class testcontroller {
     }
     @GetMapping("/board/all")
     public String allboard(Model model){
-        List<Boardentity> reuslt = (ArrayList<Boardentity>) boardreposit.findAll();
+        List<Boardentity> result = (ArrayList<Boardentity>) boardreposit.findAll();
 
-        model.addAttribute("resultkey", reuslt);
+        model.addAttribute("resultkey", result);
 
         return "Board/showall";
     }
@@ -158,14 +159,48 @@ public class testcontroller {
         return "Board/boardedit";
     }
 
-    @PostMapping("/board/")
-    public String editlink(){
+    @PostMapping("/board/{id}/edit/")
+    public String editlink(boardform form2){
 
-        return "";
+        log.info(form2.toString());
+        Boardentity boardentity = new Boardentity();
+        boardentity.setId(form2.getId());
+        boardentity.setTitle(form2.getTitle());
+        boardentity.setContents(form2.getContents());
+
+         Boardentity BE = boardreposit.findById(boardentity.getId()).orElse(null);
+
+         if(BE != null){
+
+             Boardentity result2 = boardreposit.save(boardentity);
+
+             log.info(result2.toString());
+         }
+
+        return "redirect:/board/" + boardentity.getId();
 
 
     }
 
+
+    @GetMapping("/board/{id}/delete/")
+    public String delete(@PathVariable Long id, RedirectAttributes RA){
+//        log.info("삭제요청");
+
+        // 삭제할 대상 엔티티 가져오기
+        Boardentity deleteboard = boardreposit.findById(id).orElse(null);
+
+        log.info(deleteboard.toString());
+        // 삭제하기
+        if (deleteboard!=null){
+            boardreposit.delete(deleteboard);
+
+            RA.addFlashAttribute("msg", "삭제 되었습니다.");
+        }
+
+        return "redirect:/board/all/";
+
+    }
 
 
 
