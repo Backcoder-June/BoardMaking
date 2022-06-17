@@ -168,6 +168,7 @@ public class testcontroller {
         boardentity.setTitle(form2.getTitle());
         boardentity.setContents(form2.getContents());
 
+        // 먼저찾아서 있으면 edit 된걸로 저장 해라. < 없을때 오류 방지
          Boardentity BE = boardreposit.findById(boardentity.getId()).orElse(null);
 
          if(BE != null){
@@ -177,6 +178,7 @@ public class testcontroller {
              log.info(result2.toString());
          }
 
+         //리다이렉트
         return "redirect:/board/" + boardentity.getId();
 
 
@@ -201,7 +203,6 @@ public class testcontroller {
         return "redirect:/board/all/";
 
     }
-
 
 
 

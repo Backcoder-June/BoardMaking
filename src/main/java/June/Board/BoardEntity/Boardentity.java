@@ -21,4 +21,5 @@ public class Boardentity {
     private String contents;
 
 
+
 }

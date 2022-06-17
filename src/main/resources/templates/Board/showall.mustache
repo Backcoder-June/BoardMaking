@@ -1,5 +1,14 @@
 {{>layouts/header}}
 
+{{#msg}}
+
+
+    <div class="alert alert-warning alert-dismissible" >
+        {{msg}}
+<!--        <button type="button" class="btn-close" aria-label="Close"></button>-->
+    </div>
+{{/msg}}
+
 <div class="mt-2 mb-3 ml-3">
     <form action="/board">
         <button type="submit" class="btn btn-primary">글쓰기</button>

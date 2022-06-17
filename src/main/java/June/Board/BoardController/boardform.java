@@ -14,4 +14,9 @@ public class boardform {
     private String contents;
 
 
+    /*
+    public Boardentity toEntity(){
+        return new Boardentity(id, title, contents);
+    }*/
+
 }
