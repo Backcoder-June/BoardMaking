@@ -21,5 +21,16 @@ public class Boardentity {
     private String contents;
 
 
+    public void patch(Boardentity boardentity) {
+
+        //있는 경우에만
+        if (boardentity.title != null){
+            this.title = boardentity.title;}
+        if (boardentity.contents != null) {
+            this.contents = boardentity.contents;}
+
+    }
+
+
 
 }

@@ -144,6 +144,12 @@ public class testcontroller {
     public String allboard(Model model){
         List<Boardentity> result = (ArrayList<Boardentity>) boardreposit.findAll();
 
+        // DB 에서 직접 수정하다가 null 값 entity 가 들어가면, findall null 값 뜬걸 인식 못해서 오류가 뜬다.
+        // 어떻게 잡을까   => 애초에 null 값이 입력되지 않게 설계한다.
+        // => .patch ( ) 메소드로, 수정 데이터를 this 데이터로 보내서, 고쳐진건 고쳐진 this 로, 없는건 원래 this 가 들어가게 해서
+        // null 값은 존재하지 않게 만든다.
+
+
         model.addAttribute("resultkey", result);
 
         return "Board/showall";
