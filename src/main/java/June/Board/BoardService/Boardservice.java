@@ -23,15 +23,19 @@ public class Boardservice {
         this.boardreposit = boardreposit;
     }
 
+    //목록 가져오기
     public List<Boardentity> boardindex(){
         return boardreposit.findAll();
     }
 
+
+    //해당글 가져오기
     public Boardentity show(Long id){
 
         return boardreposit.findById(id).orElse(null);
     }
 
+    //글 작성
     public Boardentity create(boardform dto){
 
         Boardentity boardentity = new Boardentity();
@@ -46,6 +50,7 @@ public class Boardservice {
     }
 
 
+    //글 수정
     public Boardentity edit(Long id, boardform dto) {
 
         Boardentity boardentity = new Boardentity();
@@ -65,6 +70,8 @@ public class Boardservice {
         return edited;
     }
 
+
+    //글 삭제
     public Boardentity delete(Long id){
 
         Boardentity deletetarget = boardreposit.findById(id).orElse(null);
@@ -89,6 +96,7 @@ public class Boardservice {
 */
 
 
+    // 트랜잭션과 롤백 실험용
     @Transactional
     public List<Boardentity> creating(List<boardform> dtos) {
         List<Boardentity> boardList = new ArrayList<>();
