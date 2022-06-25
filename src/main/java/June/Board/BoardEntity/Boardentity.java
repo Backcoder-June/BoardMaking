@@ -20,7 +20,13 @@ public class Boardentity {
     @Column
     private String contents;
 
+    public Boardentity(Long id, String title, String contents) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+    }
 
+    public Boardentity(){}
 
     public void patch(Boardentity boardentity) {
 

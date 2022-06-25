@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,11 +55,10 @@ class BoardserviceTest {
 */
 
     }
-
     @Test
     void show() {
-        //expected
 
+        //expected
         Boardentity board1 = new Boardentity();
         board1.setId(1L);
         board1.setTitle("RestAPI로 Patch");
@@ -75,10 +75,13 @@ class BoardserviceTest {
 
     @Test
     void show_noid() {
+
         //expected
         Boardentity board999 = null;
+
         //actual
-        Boardentity show999 = boardservice.show(999L);
+        Boardentity show999 = boardservice.show(-1L);
+
 
         //assert
         assertThat(show999).isEqualTo(board999);
@@ -111,6 +114,16 @@ class BoardserviceTest {
 
     }
 
+
+
+
+
+
+
+
+
+
+
     @Test
     void create_id_included_dto() {            //create 할때 id 는 안주는데, 줘버리는 경우 에러
         //expected                              // if (boardentity.getid() != null) return null; 설정해뒀기때문에
@@ -137,11 +150,150 @@ class BoardserviceTest {
 
 
     @Test
-    void edit() {
+//    @Transactional
+    void edit_성공_id_title_content_다존재_dto입력() {
+
+
+        //expected
+        Long id = 1L;
+        String title = "가가가가";
+        String contents = "1111";
+
+        boardform dto = new boardform(id, title, contents);
+
+        dto.toEntity();
+
+        Boardentity expected = new Boardentity(id, title, contents);
+
+        //actual
+
+        Boardentity edited = boardservice.edit(id, dto);
+
+
+        //assert
+
+        assertThat(edited.toString()).isEqualTo(expected.toString());
     }
 
     @Test
-    void delete() {
+//    @Transactional
+    void edit_성공_id_title_존재_두개만존재dto() {
+        //expected
+        Long id = 1L;
+        String title = "나나나나";
+
+        boardform dto = new boardform(id, title, null);
+
+        dto.toEntity();
+
+        Boardentity expected = new Boardentity(id, title, "1111");
+
+        //actual
+
+        Boardentity edited = boardservice.edit(id, dto);
+
+
+        //assert
+
+        assertThat(edited.toString()).isEqualTo(expected.toString());
+    }
+
+
+
+
+    @Test
+    @Transactional
+    void edit_실패_존재하지않는id_dto입력() {
+
+        //expected
+        Long id = 3L;
+        String title = "다다다다";
+        String contents = "3333";
+
+        boardform dto = new boardform(id, title, contents);
+
+        dto.toEntity();
+
+        Boardentity expected = null;
+
+        //actual
+
+        Boardentity edited = boardservice.edit(id, dto);
+
+
+        //assert
+
+        assertThat(edited).isEqualTo(expected);
+    }
+
+
+
+
+
+
+
+
+    @Test
+    void edit_실패_id만_존재_dto() {                     //성공 되는데. id만 줘도, patch로 title contents 받아오니까
+                                                            //위에 id,title만 줬을때 성공인것과 마찬가지로 성공 이어야할거같은데
+        //expected
+        Long id = 1L;
+        String title = "나나나나";
+        String contents = "1111";
+
+        boardform dto = new boardform(id, null, null);
+
+        dto.toEntity();
+
+        Boardentity expected = new Boardentity(id, title, contents);
+
+        //actual
+
+        Boardentity edited = boardservice.edit(id, dto);
+
+
+        //assert
+
+        assertThat(edited).isEqualTo(expected);
+    }
+
+    @Test
+    void delete_성공_id존재() {
+
+        //expected
+        Boardentity expected = null;
+
+        //actual
+        Boardentity deleted = boardservice.delete(254L);
+
+        Boardentity show = boardservice.show(254L);
+
+        //assert
+        assertThat(show).isEqualTo(expected);
+
+
+
+
+
+    }
+    @Test
+    @Transactional
+    void delete_실패_id없음() {
+
+
+        //expected
+        Boardentity expected = null;
+
+
+        //actual
+
+        Boardentity deleted = boardservice.delete(3L);
+
+
+        //assert
+
+        assertThat(deleted).isEqualTo(expected);
+
     }
 
 

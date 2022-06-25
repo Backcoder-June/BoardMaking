@@ -4,10 +4,6 @@ import java.util.*;
 
 import static java.util.Arrays.sort;
 
-
-
-
-
 public class practice2 {
 
 
@@ -38,6 +34,7 @@ public class practice2 {
 
 
     public static void main(String[] args) {
+
 
         List<computer> computers = new ArrayList<>();
 
@@ -154,15 +151,15 @@ public class practice2 {
 
         //~18.5 저체중 / ~25 정상 / ~ 30 과체중 / ~ 비만
         //bmi = k / t^2
-        double weight = 70;
+        double weight = 80;
         double height = 171;
         double BMI = (weight / ((height*height)/10000));
 
         if (BMI < 18.5){
             System.out.println("BMI 지수 : "+ String.format("%.2f",BMI) + " 로 \"저체중\"에 해당합니다.");
-        } else if (18.5<=BMI && BMI <25){
+        } else if (BMI <25){
             System.out.println("BMI 지수 : "+ String.format("%.2f",BMI) + " 로 \"정상\"에 해당합니다.");
-        } else if (25<=BMI && BMI <30) {
+        } else if (BMI <30) {
             System.out.println("BMI 지수 : " + String.format("%.2f",BMI) + " 로 \"과체중\"에 해당합니다.");
         } else if (30<=BMI) {
             System.out.println("BMI 지수 : " + String.format("%.2f",BMI) + " 로 \"비만\"에 해당합니다.");
