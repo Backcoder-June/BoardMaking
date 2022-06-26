@@ -1,10 +1,8 @@
 package June.Board.BoardController;
 
-import June.Board.BoardEntity.BackMember;
-import June.Board.BoardEntity.Boardentity;
-import June.Board.BoardEntity.MarketerEntity;
-import June.Board.BoardEntity.modelentity;
+import June.Board.BoardEntity.*;
 import June.Board.BoardREposit.Boardreposit;
+import June.Board.BoardREposit.CommentReposit;
 import June.Board.BoardREposit.Marketerreposit;
 import June.Board.BoardREposit.Memberreposit;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.net.BindException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +25,14 @@ public class testcontroller {
     private final Boardreposit boardreposit;
     private final Marketerreposit marketerreposit;
     private final Memberreposit memberreposit;
-
+    private final CommentReposit commentReposit;
 
     @Autowired
-    public testcontroller(Boardreposit boardreposit, Marketerreposit marketerreposit, Memberreposit memberreposit) {
+    public testcontroller(Boardreposit boardreposit, Marketerreposit marketerreposit, Memberreposit memberreposit, CommentReposit commentReposit) {
         this.boardreposit = boardreposit;
         this.marketerreposit = marketerreposit;
         this.memberreposit = memberreposit;
+        this.commentReposit = commentReposit;
     }
 
 
@@ -130,13 +128,16 @@ public class testcontroller {
     @GetMapping("/board/{id}")
     public String userpage(@PathVariable Long id, Model model){
 
-        log.info("id= " + id);
+//        log.info("id= " + id);
 
 //        Optional<Boardentity> boardentity = boardreposit.findById(id);
 //        Boardentity boardentity = boardreposit.findById(id).orElse(null);
         Optional<Boardentity> boardentity = boardreposit.findById(id);
 
         model.addAttribute("boardkey", boardentity.orElse(null));
+
+        List<Comment> commentlist = commentReposit.findByBoardId(id);
+        model.addAttribute("commentkey", commentlist);
 
         return "Board/show";
     }

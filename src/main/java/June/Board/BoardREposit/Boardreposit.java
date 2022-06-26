@@ -14,11 +14,11 @@ public interface Boardreposit extends CrudRepository<Boardentity, Long> {
     @Override
     ArrayList<Boardentity> findAll();
 
-    static Map<Long, Boardentity> store = new HashMap<>();
+//    static Map<Long, Boardentity> store = new HashMap<>();
 
-    public static void clearman(){
-        store.clear();
-    }
+//    public static void clearman(){
+//        store.clear();
+//    }
 
 
 

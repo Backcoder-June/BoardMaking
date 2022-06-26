@@ -75,15 +75,15 @@ public class Servicecontroller {
 
     }
 
-    @PostMapping("/service/transaction")
-    public ResponseEntity<List<Boardentity>> transaction (@RequestBody List<boardform> dtos){
-
-        List<Boardentity> createdList = boardservice.creating(dtos);
-
-        return (createdList != null) ?
-                ResponseEntity.status(HttpStatus.OK).body(createdList) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+//    @PostMapping("/service/transaction")
+//    public ResponseEntity<List<Boardentity>> transaction (@RequestBody List<boardform> dtos){
+//
+//        List<Boardentity> createdList = boardservice.creating(dtos);
+//
+//        return (createdList != null) ?
+//                ResponseEntity.status(HttpStatus.OK).body(createdList) :
+//                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//    }
 
 
 

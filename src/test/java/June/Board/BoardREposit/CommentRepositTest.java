@@ -7,12 +7,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+
 @DataJpaTest
 class CommentRepositTest {
 
@@ -41,6 +44,9 @@ class CommentRepositTest {
             List<Comment> allcomments = commentReposit.findByBoardId(boardId);
 
 
+
+
+//        System.out.println(allcomments.toString());
             // assert
             Assertions.assertThat(allcomments.toString()).isEqualTo(expected.toString());
 

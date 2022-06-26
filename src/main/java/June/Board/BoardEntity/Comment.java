@@ -7,18 +7,18 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Entity
-public class Comment {
+@Table(name = "Comment")
+public class Comment{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "board_id")
+    @ManyToOne
     private Boardentity boardentity;
 
     @Column
@@ -26,6 +26,13 @@ public class Comment {
     @Column
     private String body;
 
-
-
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", boardentity=" + boardentity +
+                ", nickname='" + nickname + '\'' +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

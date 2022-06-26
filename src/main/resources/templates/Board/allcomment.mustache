@@ -11,44 +11,17 @@
     <tbody>
     {{#boardkey}}
 
-    <tr>
-        <th>{{id}}</th>
-        <td>{{title}}</td>
-        <td>{{contents}}</td>
-    </tr>
+        <tr>
+            <th>{{id}}</th>
+            <td>{{title}}</td>
+            <td>{{contents}}</td>
+        </tr>
 
     {{/boardkey}}
 
 
     </tbody>
 </table>
-
-<!-- comments -->
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nickname</th>
-        <th scope="col">Body</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#commentkey}}
-        <tr>
-            <th>{{id}}</th>
-            <td>{{nickname}}</td>
-            <td>{{body}}</td>
-        </tr>
-
-    {{/commentkey}}
-
-
-    </tbody>
-</table>
-<!--comments -->
-
-
-
 
 <div class="mb-3 mr-5" align="right">
     <form action="http://localhost:8080/board/{{boardkey.id}}/edit/">
