@@ -90,7 +90,7 @@ public class testcontroller {
 
         //form 은 현재 Entity 가 아니다. boardentity 는 entity이다.
         // -> form 값을 boardentity 에 담고, boardentity 를 사용하면, entity 를 사용하는게 된다.
-        // form 이 entity 가 될 필요가 없다.
+        // 생성자 만들어놓고, form 클래스에서 toEntity 메소드 만들어두면, 이거 한방에 가능하다.
         Boardentity boardentity = new Boardentity();
         boardentity.setTitle(form.getTitle());
         boardentity.setContents(form.getContents());

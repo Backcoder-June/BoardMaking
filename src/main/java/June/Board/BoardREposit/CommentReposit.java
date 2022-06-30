@@ -17,7 +17,8 @@ public interface CommentReposit extends JpaRepository<Comment, Long> {
     // 특정 닉네임의 모든 댓글 가져오기
 
     @Query(value = "SELECT * FROM comment WHERE nickname = :nickname", nativeQuery = true)
-    List<Comment> findByNickname(String nickname);
+    List<Comment> findByNickname(@Param("nickname") String nickname);
+
 
 
 
