@@ -36,11 +36,6 @@ public class testcontroller {
     }
 
 
-/*private String username = "June";
-    private String date = "2022-06-07";
-    private String marketername = "Tom";
-*/
-
       modelentity modelEntity= new modelentity();
 
     @GetMapping("/")
@@ -98,7 +93,7 @@ public class testcontroller {
         Boardentity saved = boardreposit.save(boardentity);
 
         //   System.out.println(form.toString());
-        log.info(form.toString());
+//        log.info(form.toString());
         return "redirect:/board/" + saved.getId();
     }
 
